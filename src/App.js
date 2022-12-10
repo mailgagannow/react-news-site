@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import LoadingBar from "react-top-loading-bar";
+import NavBar from "./components/NavBar";
+import News from "./components/News";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 
 function App() {
+  const [progress, setProgress] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <NavBar />
+        <LoadingBar color="#f11946" progress={progress} />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<News setProgress={setProgress} key="general" category="general" />}
+          />
+          <Route
+            exact
+            path="/sports"
+            element={<News setProgress={setProgress} key="sports" category="sports" />}
+          />
+          <Route
+            exact
+            path="/business"
+            element={<News setProgress={setProgress} key="business" category="business" />}
+          />
+          <Route
+            exact
+            path="/science"
+            element={<News setProgress={setProgress} key="science" category="science" />}
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }
